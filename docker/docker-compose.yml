@@ -39,6 +39,9 @@ services:
     restart: unless-stopped
     environment:
       - ND_SCANNER_PURGEMISSING=always
+      - ND_LASTFM_ENABLED=true
+      - ND_LASTFM_APIKEY=${LASTFM_API_KEY}
+      - ND_LASTFM_SECRET=${LASTFM_SECRET}
 
   aurral:
     hostname: aurral
