@@ -1,0 +1,26 @@
+soulseek:
+  username: arctick_guana
+  password: 12345e78
+  listen_port: 50300
+
+remoteConfiguration: true
+
+relay:
+  controller:
+    apiKey: aBc412
+
+directories:
+  incomplete: /downloads/incomplete
+  downloads: /downloads
+
+transfers:
+  download:
+    slots: 1
+  upload:
+    slots: 2
+
+web:
+  port: 5030
+  authentication:
+    disabled: true
+

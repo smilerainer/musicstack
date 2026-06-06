@@ -1,0 +1,57 @@
+services:
+  slskd:
+    image: slskd/slskd:latest
+    container_name: slskd
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=Etc/UTC
+    volumes:
+      - ${CONFIG}/slskd:/app
+      - ${DOWNLOADS}:/downloads
+    ports:
+      - 5030:5030
+      - 5031:5031
+    restart: unless-stopped
+
+  lidarr:
+    image: linuxserver/lidarr:develop
+    network_mode: host
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+    volumes:
+      - ${CONFIG}/lidarr:/config
+      - ${MUSIC}:/music
+      - ${DOWNLOADS}:/downloads
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  navidrome:
+    image: deluan/navidrome
+    ports:
+      - "4533:4533"
+    volumes:
+      - ${MUSIC}:/music
+      - ${CONFIG}/navidrome:/data
+      - ${AURRAL_DOWNLOADS}:/music2:ro
+    restart: unless-stopped
+    environment:
+      - ND_SCANNER_PURGEMISSING=always
+
+  aurral:
+    hostname: aurral
+    image: ghcr.io/lklynet/aurral:test
+    container_name: aurral
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - DOWNLOAD_FOLDER=${AURRAL_DOWNLOADS}
+      - PUID=${PUID}
+      - PGID=${PGID}
+    volumes:
+      - ${CONFIG}/aurral:/app/backend/data
+      - ${AURRAL_DOWNLOADS}:/app/downloads
+      - ${MUSIC}:/music:ro
+      - /media/beryl:/media/beryl
