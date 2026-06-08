@@ -18,3 +18,4 @@ config/slskd/data/
 *.db-wal
 *.db-shm
 *.pid
+config/slskd/slskd.yml

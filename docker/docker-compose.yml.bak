@@ -8,7 +8,7 @@ services:
       - TZ=Etc/UTC
     volumes:
       - ${CONFIG}/slskd:/app
-      - ${DOWNLOADS}:/data
+      - ${DOWNLOADS}:/downloads
       - ${MUSIC}:/music
     ports:
       - 5030:5030
@@ -25,7 +25,7 @@ services:
     volumes:
       - ${CONFIG}/lidarr:/config
       - ${MUSIC}:/music
-      - ${DOWNLOADS}:/data
+      - ${DOWNLOADS}:/downloads
     restart: unless-stopped
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -52,11 +52,11 @@ services:
     restart: unless-stopped
     network_mode: host
     environment:
-      - DOWNLOAD_FOLDER=/data
+      - DOWNLOAD_FOLDER=${AURRAL_DOWNLOADS}
       - PUID=${PUID}
       - PGID=${PGID}
     volumes:
       - ${CONFIG}/aurral:/app/backend/data
-      - ${AURRAL_DOWNLOADS}:/data
-      - ${MUSIC}:/music
-      
+      - ${AURRAL_DOWNLOADS}:/app/downloads
+      - ${MUSIC}:/music:ro
+      - /media/beryl:/media/beryl

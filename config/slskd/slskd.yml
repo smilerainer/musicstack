@@ -1,26 +1,30 @@
 soulseek:
-  username: arctick_guana
+  username: saltknight823
   password: 12345e78
   listen_port: 50300
 
-remoteConfiguration: true
+remoteConfiguration: false
 
 relay:
   controller:
     apiKey: aBc412
 
 directories:
-  incomplete: /downloads/incomplete
-  downloads: /downloads
+  incomplete: /data/incomplete
+  downloads: /data
 
 transfers:
   download:
-    slots: 1
+    slots: 3
   upload:
-    slots: 2
+    slots: 10
 
 web:
   port: 5030
   authentication:
     disabled: true
+
+shares:
+  directories:
+    - /music
 
